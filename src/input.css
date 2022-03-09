@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    .navbar-animation{
+        @apply p-3 hover:bg-white hover:rounded-xl hover:font-bold transition-all ease-in-out
+    }
+}
