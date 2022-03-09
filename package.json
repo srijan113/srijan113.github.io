@@ -2,9 +2,12 @@
   "name": "tailwindcss",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://srijan113.github.io",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tailwindcss -i ./src/input.css -o ./public/output.css --watch"
+    "dev": "npx tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
