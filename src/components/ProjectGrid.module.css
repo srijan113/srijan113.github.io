@@ -1,0 +1,135 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--u) * 100) calc(var(--u) * 40);
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 24);
+}
+
+/* Thin black rule with the project number and role, like the contact section's divider. */
+.rule {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-top: calc(var(--u) * 16);
+  border-top: 1px solid var(--black);
+  font-family: var(--font-mono);
+  font-size: calc(var(--u) * 18);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.rule span:last-child {
+  color: var(--label);
+  text-align: right;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 807 / 470;
+  border-radius: calc(var(--u) * 42);
+  overflow: hidden;
+  background: #eee;
+}
+
+/* Hairline outline so white screenshots don't melt into the white page. */
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 13);
+  margin-top: calc(var(--u) * 5);
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: calc(var(--u) * 40);
+  line-height: 1.21;
+}
+
+.arrow {
+  flex: none;
+  width: calc(var(--u) * 68);
+  height: calc(var(--u) * 68);
+  transition: transform 0.3s ease;
+}
+
+.card:hover .arrow {
+  transform: rotate(-45deg);
+}
+
+.description {
+  max-width: calc(var(--u) * 640);
+  margin-top: calc(var(--u) * -10);
+  padding-left: calc(var(--u) * 81);
+  font-weight: 300;
+  font-size: calc(var(--u) * 22);
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+@media (max-width: 899px) {
+  .grid {
+    gap: 56px 16px;
+  }
+  .card {
+    gap: 14px;
+  }
+  .rule {
+    padding-top: 10px;
+    font-size: 11px;
+  }
+  .media {
+    border-radius: 20px;
+  }
+  .caption {
+    gap: 8px;
+    margin-top: 2px;
+    font-size: 18px;
+  }
+  .arrow {
+    width: 34px;
+    height: 34px;
+  }
+  .description {
+    max-width: none;
+    margin-top: -6px;
+    padding-left: 42px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .caption {
+    font-size: 20px;
+  }
+}

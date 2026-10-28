@@ -1,0 +1,36 @@
+.pill {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 12);
+  padding: calc(var(--u) * 13) calc(var(--u) * 34);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: calc(var(--u) * 20);
+  line-height: 1.21;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dot {
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 10);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pill:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+@media (max-width: 899px) {
+  .pill {
+    gap: 10px;
+    padding: 10px 24px;
+    font-size: 16px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}

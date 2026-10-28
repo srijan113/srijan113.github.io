@@ -1,0 +1,101 @@
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.lead {
+  width: calc(var(--u) * 1015);
+  font-weight: 500;
+  font-size: calc(var(--u) * 40);
+  line-height: 1.3;
+}
+
+.aside {
+  width: calc(var(--u) * 487);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--u) * 17);
+}
+
+.body {
+  font-weight: 300;
+  font-size: calc(var(--u) * 22);
+  line-height: 1.3;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: calc(var(--u) * 12) calc(var(--u) * 40);
+}
+
+.cvIcon {
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 34);
+  margin-left: calc(var(--u) * 8);
+  transition: transform 0.25s ease;
+}
+
+.more:hover .cvIcon {
+  transform: translateY(3px);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  font-size: calc(var(--u) * 30);
+  line-height: 1.3;
+}
+
+.moreIcon {
+  width: calc(var(--u) * 48);
+  height: calc(var(--u) * 48);
+  transition: transform 0.25s ease;
+}
+
+.more:hover .moreIcon {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 899px) {
+  .about {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+  }
+  .lead {
+    width: 100%;
+    font-size: 24px;
+  }
+  .aside {
+    width: 100%;
+    gap: 16px;
+  }
+  .body {
+    font-size: 16px;
+    text-align: left;
+  }
+  .links {
+    justify-content: flex-start;
+    gap: 12px 28px;
+  }
+  .more {
+    font-size: 20px;
+  }
+  .cvIcon {
+    width: 24px;
+    height: 24px;
+    margin-left: 6px;
+  }
+  .moreIcon {
+    width: 34px;
+    height: 34px;
+  }
+}

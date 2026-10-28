@@ -1,0 +1,116 @@
+.page {
+  padding-bottom: calc(var(--u) * 66);
+  background: var(--black);
+  color: var(--white);
+}
+
+.header {
+  min-height: calc(var(--u) * (852 + 66 - 118));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 28);
+  padding: 0 var(--gutter);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: calc(var(--u) * 20);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9a9a9a;
+  text-align: center;
+}
+
+.title {
+  max-width: calc(var(--u) * 1212);
+  font-weight: 400;
+  font-size: calc(var(--u) * 140);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.columns {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 20);
+  margin-top: calc(var(--u) * 70);
+  padding: 0 var(--gutter);
+}
+
+.column {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 20);
+}
+
+.pair {
+  display: flex;
+  gap: calc(var(--u) * 20);
+}
+
+.pairFixed {
+  flex: 0 0 calc(var(--u) * 267);
+}
+
+.pairFlex {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.learning {
+  margin-top: calc(var(--u) * 140);
+  padding: 0 var(--gutter);
+}
+
+/* Tablet & phone: flatten into a CSS multi-column masonry. */
+@media (max-width: 899px) {
+  .page {
+    padding-bottom: 48px;
+  }
+  .header {
+    min-height: 0;
+    padding: 96px var(--gutter);
+  }
+  .header {
+    gap: 14px;
+  }
+  .kicker {
+    font-size: 11px;
+  }
+  .title {
+    max-width: 640px;
+    font-size: clamp(44px, 11vw, 88px);
+  }
+  .columns {
+    display: block;
+    column-count: 2;
+    column-gap: 16px;
+    margin-top: 0;
+  }
+  .column,
+  .pair {
+    display: contents;
+  }
+  .card,
+  .pairFixed,
+  .pairFlex {
+    break-inside: avoid;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 899px) {
+  .learning {
+    margin-top: 72px;
+  }
+}
+
+@media (max-width: 599px) {
+  .columns {
+    column-count: 1;
+  }
+}

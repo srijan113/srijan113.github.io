@@ -1,0 +1,121 @@
+.card {
+  /* --s scales the card's internals: equal to --u on desktop, fixed on mobile. */
+  --s: var(--u);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--s) * var(--gap));
+  padding: calc(var(--s) * 50) calc(var(--s) * 40);
+  border-radius: calc(var(--s) * 32);
+  background: var(--card);
+  color: var(--white);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+  background: #232323;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--s) * 20);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--s) * 15) calc(var(--s) * 30);
+}
+
+.circle {
+  flex: none;
+  width: calc(var(--s) * 100);
+  height: calc(var(--s) * 100);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--card-inner);
+  transition: transform 0.3s ease;
+}
+
+.circle:hover {
+  transform: scale(1.08);
+}
+
+.circle img {
+  width: calc(var(--s) * var(--w));
+  height: calc(var(--s) * var(--h));
+  max-width: none;
+  object-fit: contain;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--s) * 15) calc(var(--s) * 10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  height: calc(var(--s) * 50);
+  padding: 0 calc(var(--s) * 24);
+  border-radius: 999px;
+  background: var(--card-inner);
+  font-weight: 300;
+  font-size: calc(var(--s) * 20);
+  white-space: nowrap;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--s) * 10);
+}
+
+.title {
+  font-weight: 500;
+  font-size: calc(var(--s) * 28);
+  line-height: 1.3;
+}
+
+.body {
+  max-width: calc(var(--s) * 506);
+  font-weight: 300;
+  font-size: calc(var(--s) * 20);
+  line-height: 1.3;
+  color: var(--card-text);
+}
+
+@media (max-width: 899px) {
+  .card {
+    --s: 0.68px;
+    gap: 22px;
+    padding: 28px 20px;
+    border-radius: 24px;
+  }
+  .rows,
+  .row {
+    gap: 12px;
+  }
+  .chip {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 15px;
+  }
+  .chips {
+    gap: 8px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .body {
+    max-width: none;
+    font-size: 15px;
+  }
+}

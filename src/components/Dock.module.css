@@ -1,0 +1,97 @@
+.wrap {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 50;
+}
+
+.dock {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0;
+  padding: 10px 20px;
+  list-style: none;
+  background: var(--dock);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.item {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--dock-item);
+  color: var(--white);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.muted {
+  color: var(--dock-item-active);
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  background: #333333;
+}
+
+.active,
+.active:hover {
+  background: var(--dock-item-active);
+  color: var(--black);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.iconWide {
+  width: 23px;
+  height: 20px;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 599px) {
+  .wrap {
+    bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+  .dock {
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 16px;
+  }
+  .item {
+    width: 40px;
+    height: 40px;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+  .iconWide {
+    width: 19px;
+    height: 17px;
+  }
+}
+
+/* Eight buttons: tighten on small phones so the dock always fits. */
+@media (max-width: 420px) {
+  .dock {
+    gap: 4px;
+    padding: 7px 8px;
+  }
+  .item {
+    width: 36px;
+    height: 36px;
+  }
+}

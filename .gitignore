@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+*.tsbuildinfo
+dist-ssr/
+
+# Original photo (the site uses the converted JPGs in src/assets/images)
+hero_image.HEIC
