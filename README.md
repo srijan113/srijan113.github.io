@@ -131,14 +131,24 @@ every push to `main`.
 4. Open the **Actions** tab and wait for "Deploy to GitHub Pages" to finish (about a
    minute). Every later push redeploys automatically.
 
-**Custom domain (optional):** add it under Settings → Pages → Custom domain, then create a
-repository variable `CUSTOM_DOMAIN` (Settings → Secrets and variables → Actions → Variables)
-with the same value, e.g. `srijanpokhrel.com.np`, and re-run the workflow, so canonical
-links and the sitemap use it.
+**Custom domain:** the site is set up for **srijanpokhrel.info.np** (canonical links, sitemap
+and social previews use it). DNS and GitHub settings:
+
+1. In a DNS host (e.g. Cloudflare, free), add for `srijanpokhrel.info.np`:
+   - `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `AAAA` records for `@` → `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+   - `CNAME` for `www` → `srijan113.github.io`
+   (On Cloudflare, set these to **DNS only**, grey cloud.)
+2. At register.com.np, set the domain's nameservers to the ones your DNS host gives you.
+3. In the repo: **Settings → Pages → Custom domain** → `srijanpokhrel.info.np` → Save, then
+   tick **Enforce HTTPS** once it becomes available.
+
+To use a different domain later, set the repository variable `CUSTOM_DOMAIN`
+(Settings → Secrets and variables → Actions → Variables).
 
 **Build locally like GitHub does:**
 ```bash
-BASE_PATH=/ VITE_SITE_URL=https://srijan113.github.io npm run build
+BASE_PATH=/ VITE_SITE_URL=https://srijanpokhrel.info.np npm run build
 npm run preview
 ```
 

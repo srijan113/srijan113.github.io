@@ -29,11 +29,11 @@ jobs:
 
       # Repo "srijan113.github.io" → https://srijan113.github.io/ (base "/")
       # Any other repo, e.g. "portfolio" → https://srijan113.github.io/portfolio/ (base "/portfolio/")
-      # Custom domain: set the repository variable CUSTOM_DOMAIN (e.g. srijanpokhrel.com.np).
+      # Custom domain: srijanpokhrel.info.np (override with the repository variable CUSTOM_DOMAIN).
       - name: Work out site URL and base path
         id: site
         env:
-          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+          CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN || 'srijanpokhrel.info.np' }}
         run: |
           owner="$(echo "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')"
           repo="${GITHUB_REPOSITORY#*/}"
