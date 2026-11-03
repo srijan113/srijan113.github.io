@@ -30,7 +30,7 @@ const items: Item[] = [
   { key: 'home', label: 'Home', Icon: HomeIcon, to: '/' },
   { key: 'skills', label: 'Skills', Icon: TerminalIcon, to: '/skills' },
   { key: 'projects', label: 'Projects', Icon: CubeIcon, to: '/projects' },
-  { key: 'me', label: profile.name, to: '/' },
+  { key: 'me', label: `About ${profile.name}`, to: '/about' },
   { key: 'cv', label: 'Download CV', Icon: DownloadIcon, href: profile.cvUrl, download: true },
   { key: 'linkedin', label: 'LinkedIn', Icon: LinkedinIcon, href: profile.linkedinUrl },
   { key: 'github', label: 'GitHub', Icon: GithubIcon, href: profile.githubUrl, muted: true },
@@ -45,7 +45,7 @@ export function Dock() {
     <nav className={styles.wrap} aria-label="Main">
       <ul className={styles.dock}>
         {items.map(({ key, label, Icon, to, href, muted, download }) => {
-          const active = !!to && key !== 'me' && path === to;
+          const active = !!to && (path === to || (to === '/projects' && path.startsWith('/projects/')));
           const className = [styles.item, active && styles.active, muted && styles.muted, !Icon && styles.avatar]
             .filter(Boolean)
             .join(' ');
@@ -68,7 +68,7 @@ export function Dock() {
                   aria-label={label}
                   title={label}
                   download={download || undefined}
-                  {...(href?.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}>
+                  {...(href?.startsWith('http') ? { target: '_blank', rel: key === 'cv' ? 'noreferrer' : 'me noreferrer' } : {})}>
                   {content}
                 </a>
               )}

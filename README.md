@@ -3,11 +3,16 @@
 Personal portfolio of Srijan Pokhrel (srijan113), backend and DevOps engineer.
 A responsive React + Vite website.
 
-| Page     | URL         |
-| -------- | ----------- |
-| Home     | `/`         |
-| Skills   | `/skills`   |
-| Projects | `/projects` |
+| Page     | URL                  |
+| -------- | -------------------- |
+| Home     | `/`                  |
+| About    | `/about`             |
+| Skills   | `/skills`            |
+| Projects | `/projects`          |
+| Project  | `/projects/<slug>`   |
+
+Each project gets its own page, built from `src/data/projects.ts` (title, role, overview,
+highlights, link). Adding a project there adds its page, sitemap entry and structured data.
 
 ## Run it
 
@@ -44,7 +49,7 @@ src/
                         SkillCard, Contact, Footer, Dock, Layout, icons
 scripts/make_cv.py      builds the text-only CV PDF
 scripts/prerender.mjs   renders each page to static HTML + sitemap/robots (runs in npm run build)
-  pages/                Home, Skills, Projects
+  pages/                Home, AboutPage, Skills, Projects, ProjectPage (+ Article.module.css)
   data/
     profile.ts          name, email, phone, GitHub, LinkedIn, CV link  ← edit me
     experience.ts       work history, education, certifications
@@ -91,8 +96,8 @@ The hero photo is shown in black and white. For colour, remove the
 - **Site address:** set automatically by the GitHub Pages workflow (`VITE_SITE_URL`);
   the local fallback is in `src/data/site.ts`. Canonical links, the sitemap, social previews
   and structured data are all built from it.
-- **Pre-rendered pages:** `npm run build` builds the site, then renders `/`, `/skills` and
-  `/projects` to real HTML (`scripts/prerender.mjs`), so search engines see the full content
+- **Pre-rendered pages:** `npm run build` builds the site, then renders every page (home, about,
+  skills, projects and each project page) to real HTML (`scripts/prerender.mjs`), so search engines see the full content
   without running JavaScript. It also writes `dist/sitemap.xml` and `dist/robots.txt`.
 - **Page titles and descriptions:** `src/seo.ts` (`pages`), plus keywords and the schema.org
   `Person` / `WebSite` / `ProfilePage` structured data.

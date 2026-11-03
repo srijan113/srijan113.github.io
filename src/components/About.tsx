@@ -22,7 +22,7 @@ export function About() {
             Download CV
             <DownloadIcon className={styles.cvIcon} />
           </a>
-          <Link to="/skills" className={`dm ${styles.more}`}>
+          <Link to="/about" className={`dm ${styles.more}`}>
             More about me
             <ArrowCircleUpRight className={styles.moreIcon} />
           </Link>

@@ -1,4 +1,5 @@
 import { projects, type Project } from '../data/projects';
+import { Link } from '../router';
 import { ArrowCircleRight } from './icons';
 import styles from './ProjectGrid.module.css';
 
@@ -6,7 +7,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const number = String(index + 1).padStart(2, '0');
 
   return (
-    <a className={styles.card} href={project.url} target="_blank" rel="noreferrer">
+    <Link className={styles.card} to={`/projects/${project.slug}`}>
       <div className={styles.rule}>
         <span>{number}</span>
         <span>{project.meta}</span>
@@ -27,7 +28,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <span>{project.title}</span>
       </h3>
       <p className={`dm ${styles.description}`}>{project.description}</p>
-    </a>
+    </Link>
   );
 }
 

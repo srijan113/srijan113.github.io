@@ -55,6 +55,11 @@
   height: 20px;
 }
 
+/* The avatar shows a ring when its page (About) is open. */
+.avatar.active {
+  box-shadow: 0 0 0 2px var(--dock), 0 0 0 4px var(--dock-item-active);
+}
+
 .avatar img {
   width: 100%;
   height: 100%;

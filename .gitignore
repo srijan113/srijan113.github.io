@@ -7,3 +7,4 @@ dist-ssr/
 
 # Original photo (the site uses the converted JPGs in src/assets/images)
 hero_image.HEIC
+_to_delete/

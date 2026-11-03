@@ -11,36 +11,58 @@ import { SITE_URL } from './data/site';
 export { SITE_URL };
 
 export type PageMeta = {
-  path: '/' | '/skills' | '/projects';
+  path: string;
   title: string;
   description: string;
+  /** Breadcrumb label for the page itself. */
+  crumb?: string;
 };
+
+const projectPages: PageMeta[] = projects.map((p) => ({
+  path: `/projects/${p.slug}`,
+  title: `${p.title} – Project by Srijan Pokhrel`,
+  description: `${p.description} ${p.role} on ${p.title}: a project by Srijan Pokhrel, backend and DevOps developer in Nepal.`,
+  crumb: p.title,
+}));
 
 export const pages: PageMeta[] = [
   {
     path: '/',
     title: 'Srijan Pokhrel – Backend & DevOps Developer in Nepal',
     description:
-      'Srijan Pokhrel (srijan113) is a backend and DevOps developer in Nepal with 5+ years of Python, Django, FastAPI and AWS experience. See projects, experience and CV.',
+      'Srijan Pokhrel (srijanpokhrel, srijan113) is a backend and DevOps developer in Nepal with 5+ years of Python, Django, FastAPI and AWS experience. See projects, experience and CV.',
+  },
+  {
+    path: '/about',
+    title: 'About Srijan Pokhrel – Backend & DevOps Developer from Nepal',
+    description:
+      'About Srijan Pokhrel (srijanpokhrel, srijan113): backend and DevOps developer from Nepal with 5+ years in Python, Django, FastAPI, AWS and Docker. Career, projects, education and contact.',
+    crumb: 'About',
   },
   {
     path: '/skills',
+    crumb: 'Skills',
     title: 'Skills – Srijan Pokhrel, Python, Django & DevOps Developer',
     description:
       'Skills of Srijan Pokhrel, backend and DevOps developer in Nepal: Python, Django, FastAPI, Flask, GraphQL, PostgreSQL, MongoDB, AWS, Docker, CI/CD and team leadership.',
   },
   {
     path: '/projects',
+    crumb: 'Projects',
     title: 'Projects – Srijan Pokhrel, Backend Developer in Nepal',
     description:
       'Products built by Srijan Pokhrel: a home-care CRM, IRD-verified Nepal e-billing, a microservices school management system, booking and scheduling platforms.',
   },
+  ...projectPages,
 ];
 
 export const KEYWORDS = [
   'Srijan Pokhrel',
+  'srijanpokhrel',
   'srijan113',
   'Srijan Pokhrel developer',
+  'Srijan Pokhrel Nepal',
+  'सृजन पोखरेल',
   'developer in Nepal',
   'backend developer Nepal',
   'DevOps engineer Nepal',
@@ -63,8 +85,9 @@ const person = {
   name: profile.name,
   givenName: 'Srijan',
   familyName: 'Pokhrel',
-  alternateName: 'srijan113',
+  alternateName: ['srijanpokhrel', 'srijan113', 'सृजन पोखरेल', 'Srijan Pokhrel (srijan113)'],
   url: `${SITE_URL}/`,
+  mainEntityOfPage: `${SITE_URL}/about/`,
   image: OG_IMAGE,
   jobTitle: 'Backend and DevOps Developer',
   description: pages[0].description,
@@ -95,7 +118,7 @@ const website = {
   '@id': `${SITE_URL}/#website`,
   url: `${SITE_URL}/`,
   name: 'Srijan Pokhrel',
-  alternateName: ['srijan113', 'Srijan Pokhrel – Developer'],
+  alternateName: ['srijanpokhrel', 'srijanpokhrel.info.np', 'srijan113', 'Srijan Pokhrel – Developer'],
   inLanguage: 'en',
   publisher: { '@id': `${SITE_URL}/#person` },
 };
@@ -107,26 +130,42 @@ export function structuredData(path: string) {
     person,
     website,
     {
-      '@type': path === '/' ? 'ProfilePage' : 'WebPage',
+      '@type': path === '/' || path === '/about' ? 'ProfilePage' : 'WebPage',
       '@id': `${url(page.path)}#webpage`,
       url: url(page.path),
       name: page.title,
       description: page.description,
       isPartOf: { '@id': `${SITE_URL}/#website` },
       about: { '@id': `${SITE_URL}/#person` },
-      ...(path === '/' ? { mainEntity: { '@id': `${SITE_URL}/#person` } } : {}),
+      ...(path === '/' || path === '/about' ? { mainEntity: { '@id': `${SITE_URL}/#person` } } : {}),
       primaryImageOfPage: OG_IMAGE,
       inLanguage: 'en',
     },
   ];
 
   if (page.path !== '/') {
+    const crumbs = [{ name: 'Home', item: `${SITE_URL}/` }];
+    if (page.path.startsWith('/projects/')) crumbs.push({ name: 'Projects', item: url('/projects') });
+    crumbs.push({ name: page.crumb ?? page.title, item: url(page.path) });
     graph.push({
       '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: page.path === '/skills' ? 'Skills' : 'Projects', item: url(page.path) },
-      ],
+      itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, ...c })),
+    });
+  }
+
+  const project = projects.find((p) => `/projects/${p.slug}` === page.path);
+  if (project) {
+    graph.push({
+      '@type': 'CreativeWork',
+      '@id': `${url(page.path)}#project`,
+      name: project.title,
+      description: project.description,
+      url: url(page.path),
+      sameAs: project.url,
+      image: new URL(project.image, `${SITE_URL}/`).href,
+      creator: { '@id': `${SITE_URL}/#person` },
+      author: { '@id': `${SITE_URL}/#person` },
+      inLanguage: 'en',
     });
   }
 
@@ -141,7 +180,8 @@ export function structuredData(path: string) {
           '@type': 'CreativeWork',
           name: p.title,
           description: p.description,
-          url: p.url,
+          url: url(`/projects/${p.slug}`),
+          sameAs: p.url,
           creator: { '@id': `${SITE_URL}/#person` },
         },
       })),
@@ -166,9 +206,11 @@ export function headHtml(path: string): string {
     `<meta name="author" content="${esc(profile.name)}" />`,
     `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
     `<link rel="canonical" href="${canonical}" />`,
+    `<link rel="me" href="${profile.githubUrl}" />`,
+    `<link rel="me" href="${profile.linkedinUrl}" />`,
     `<meta name="geo.region" content="NP" />`,
     `<meta name="geo.placename" content="Nepal" />`,
-    `<meta property="og:type" content="profile" />`,
+    `<meta property="og:type" content="${page.path.startsWith('/projects/') ? 'article' : 'profile'}" />`,
     `<meta property="og:site_name" content="Srijan Pokhrel" />`,
     `<meta property="og:locale" content="en_US" />`,
     `<meta property="og:title" content="${esc(page.title)}" />`,
@@ -236,7 +278,7 @@ export function sitemapXml(lastmod: string): string {
     <loc>${url(p.path)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>${p.path === '/' ? '1.0' : '0.8'}</priority>
+    <priority>${p.path === '/' ? '1.0' : p.path === '/about' ? '0.9' : p.path.startsWith('/projects/') ? '0.7' : '0.8'}</priority>
   </url>`,
     )
     .join('\n');
